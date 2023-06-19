@@ -1,4 +1,4 @@
-# openvino_redeem_notifier - Redeem Notifications server
+# Redeem Notifications server
 
 This is a simple Express server with WebSocket functionality. It listens on port 8081 and allows WebSocket connections to be established. It also includes a route to handle a POST request for sending messages to connected WebSocket clients.
 
