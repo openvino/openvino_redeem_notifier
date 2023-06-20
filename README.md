@@ -1,12 +1,12 @@
-# Redeem Notifications Server
+## Redeem Notifications Server
 
 This is a simple Express server with WebSocket functionality. It listens on port 8081 and allows WebSocket connections to be established. It also includes a route to handle a POST request for sending messages to connected WebSocket clients.
 
-## Prerequisites
+### Prerequisites
 
 - [Node.js](https://nodejs.org) installed on your machine.
 
-## Installation
+### Installation
 
 1. Clone the repository or download the source code.
 2. Open a terminal and navigate to the project directory.
@@ -16,7 +16,7 @@ This is a simple Express server with WebSocket functionality. It listens on port
    npm install
    ```
 
-## Usage
+### Usage
 
 1. Open a terminal and navigate to the project directory.
 2. Start the Express server by running the following command:
@@ -29,27 +29,23 @@ This is a simple Express server with WebSocket functionality. It listens on port
 4. To establish a WebSocket connection, use a WebSocket client library or tool and connect to `ws://localhost:8081`.
 5. Once connected, you can send and receive messages through the WebSocket connection.
 
-## API Endpoint
+### API Endpoint
 
-The server provides a single API endpoint to send messages to all connected WebSocket clients.
+The server provides a single API endpoint to trigger a notification update for all connected WebSocket clients.
 
-### Endpoint
+#### Endpoint
 
 `POST /api/sendMessage`
 
-### Request
+#### Request
 
-The request should be a JSON object with the following structure:
+The server expects a POST request from the OpenVino API when a redeem is done. The request can be an empty JSON object or include additional data as needed.
 
-```json
-{
-  "message": "Notification updated!"
-}
-```
+When a redeem is done and a POST request arrives at this endpoint from the OpenVino API, the server will send a predefined notification update message to all connected WebSocket clients. The purpose is to notify the clients that a redeem has been completed, and they should refresh their notifications accordingly.
 
-### Response
+#### Response
 
-- If the message is successfully sent to all connected clients, the server will respond with a JSON object:
+- If the notification update message is successfully sent to all connected clients, the server will respond with a JSON object:
 
   ```json
   {
@@ -65,7 +61,7 @@ The request should be a JSON object with the following structure:
   }
   ```
 
-## WebSocket Events
+### WebSocket Events
 
 The server emits the following events related to WebSocket connections:
 
@@ -74,4 +70,3 @@ The server emits the following events related to WebSocket connections:
 - `"close"`: This event is emitted when a WebSocket client disconnects from the server.
 
 You can listen for these events and perform actions based on them.
-
