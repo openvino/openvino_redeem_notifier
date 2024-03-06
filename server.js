@@ -1,5 +1,5 @@
-const express = require("express");
-const WebSocket = require("ws");
+const express = require('express');
+const WebSocket = require('ws');
 
 const app = express();
 const port = 8081;
@@ -8,15 +8,15 @@ const port = 8081;
 const wss = new WebSocket.Server({ noServer: true });
 
 // Handle WebSocket connections
-wss.on("connection", (ws) => {
-  console.log("WebSocket client connected");
+wss.on('connection', (ws) => {
+  console.log('WebSocket client connected');
 
-  ws.on("message", (message) => {
-    console.log("Received message:", message);
+  ws.on('message', (message) => {
+    console.log('Received message:', message);
   });
 
-  ws.on("close", () => {
-    console.log("WebSocket client disconnected");
+  ws.on('close', () => {
+    console.log('WebSocket client disconnected');
   });
 });
 
@@ -26,16 +26,16 @@ const server = app.listen(port, () => {
 });
 
 // Upgrade incoming HTTP requests to WebSocket
-server.on("upgrade", (request, socket, head) => {
+server.on('upgrade', (request, socket, head) => {
   wss.handleUpgrade(request, socket, head, (ws) => {
-    wss.emit("connection", ws, request);
+    wss.emit('connection', ws, request);
   });
 });
 
 // Define a route to handle the POST request
-app.post("/api/sendMessage", (req, res) => {
+app.post('/api/sendMessage', (req, res) => {
   try {
-    const message = "Notification updated!";
+    const message = 'Notification updated!';
 
     // Send the message to all connected WebSocket clients
     wss.clients.forEach((client) => {
@@ -47,6 +47,10 @@ app.post("/api/sendMessage", (req, res) => {
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
+});
+
+app.get('/api/status', (req, res) => {
+  res.status(200).json({ msg: 'eskere' });
 });
