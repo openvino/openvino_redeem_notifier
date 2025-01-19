@@ -11,6 +11,12 @@ const wss = new WebSocket.Server({ noServer: true });
 wss.on('connection', (ws) => {
   console.log('WebSocket client connected');
 
+  const pingInterval = setInterval(() => {
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.ping();
+    }
+  }, 30000); 
+
   ws.on('message', (message) => {
     console.log('Received message:', message);
   });
